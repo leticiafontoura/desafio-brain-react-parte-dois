@@ -1,8 +1,9 @@
 import styled, { css } from 'styled-components/macro'
+import { Aside } from 'aside'
 
 function App () {
   return (
-    <Title>Oi</Title>
+    <Aside />
   )
 }
 
