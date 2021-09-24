@@ -1,12 +1,18 @@
 import DarkLogo from './assets/DarkLogo.png'
+import FileIcon from './assets/fileIcon.png'
 import styled, { css } from 'styled-components/macro'
 
-interface FilesType {
+type FilesType = {
   id: string
   name: string
   content: string
   active: boolean
   status: 'editing' | 'saving' | 'saved'
+}
+
+type ImgProps = {
+  src: string,
+  alt: string
 }
 
 const Files: FilesType[] = [
@@ -30,7 +36,7 @@ function Aside () {
   return (
     <AsideMenu>
       <AsideHeader>
-        <img src={DarkLogo} alt='dark logo' />
+        <ImgLogo src={DarkLogo} alt='dark logo' />
         <Heading>
           Arquivos
         </Heading>
@@ -39,7 +45,7 @@ function Aside () {
       {Files.map((file) => {
         return (
           <ListItems key={file.id}>
-            <ListA href='/'>{file.name}</ListA>
+            <ListA href='/'><ImgIcon src={FileIcon} alt='' />{file.name}</ListA>
             <ListItemButton>x</ListItemButton>
           </ListItems>
         )
@@ -51,8 +57,20 @@ function Aside () {
 const AsideMenu = styled.aside`
   ${({ theme }) => css`
     background-color: ${theme.colors.black};
-    width: 332px;
+    width: 23%;
+    height: 100%;
+    padding: 32px;
   `}
+`
+
+const ImgLogo = styled.img<ImgProps>`
+  display: block;
+  margin: 0 auto 65px auto;
+`
+
+const ImgIcon = styled.img<ImgProps>`
+  padding-right: 15px;
+  vertical-align: sub;
 `
 
 const AsideHeader = styled.header``
@@ -66,20 +84,20 @@ const Heading = styled.h1`
 
     &::before {
       content: "";
-      width: 13px;
+      width: 25px;
       border-top: 2px solid ${theme.colors.primary};
       position: absolute;
-      top: 77px;
-      left: 7px;
+      top: 160px;
+      left: 32px;
     }
 
     &::after {
       content: "";
-      width: 178px;
+      width: 164px;
       border-top: 2px solid ${theme.colors.primary};
       position: absolute;
-      top: 77px;
-      left: 110px;
+      top: 160px;
+      left: 132px;
     }
   `}
 `
@@ -87,7 +105,14 @@ const Heading = styled.h1`
 const ListItems = styled.li`
   ${({ theme }) => css`
     list-style-type: none;
-    color: ${theme.colors.white}
+    color: ${theme.colors.white};
+    padding: 10px 15px;
+    border-radius: 6px;
+
+    &:hover {
+      background-color: rgba(255, 255, 255, 0.05);
+      color: ${theme.colors.white};
+    }
   `
   }
 `
@@ -95,10 +120,14 @@ const ListA = styled.a`
   ${({ theme }) => css`
     text-decoration: none;
     font-size: 1.6rem;
-    color: ${theme.colors.white};
+    color: rgba(255, 255, 255, 0.65);
 
     &:visited {
       text-decoration: none;
+      color: rgba(255, 255, 255, 0.65);
+    }
+
+    &:hover {
       color: ${theme.colors.white};
     }
   `
@@ -112,6 +141,8 @@ const ListItemButton = styled.button`
     border: 0;
     font-size: 2rem;
     cursor: pointer;
+    position: absolute;
+    left: 265px;
   `
   }
 `
@@ -123,9 +154,10 @@ const AsideButton = styled.button`
     font-size: 1.3rem;
     border: 0;
     border-radius: 3px;
-    margin: 0 32px;
+    margin: 34px auto;
+    display: block;
     padding: 10px 0;
-    width: 268px;
+    width: 100%;
     cursor: pointer;
 
     & span {
